@@ -34,57 +34,29 @@ namespace CensusAnalyserProblemTest
         [Test]
         public void givenIndianCensusCSVFile_WhenFileNotExist_ShouldThrowFileNotFoundException()
         {
-            try 
-            {
-                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,invalidCsvFilePath);
-                Assert.AreEqual(29, indianCensusRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>( () => censusAnalyser.loadCSVFileData(indianCensusDataHeaders, invalidCsvFilePath));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, error.type);
         }
 
         [Test]
         public void givenIndianCensusCSVFile_WhenFileFormatIsIncorrect_ShouldThrowIncorrectFileFormatException()
         {
-            try
-            {
-                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,nonCSVFile);
-                Assert.AreEqual(29, indianCensusRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVFileData(indianCensusDataHeaders, nonCSVFile));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT, error.type);
         }
 
         [Test]
         public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButDelimeterIsWrong_ShouldThrowIncorrectDelimeterException()
         {
-            try
-            {
-                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,wrongDelemeterFile);
-                Assert.AreEqual(29, indianCensusRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVFileData(indianCensusDataHeaders, wrongDelemeterFile));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, error.type);
         }
 
         [Test]
         public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButHeaderIsIncorrect_ShouldThrowIncorrectHeaderException()
         {
-            try
-            {
-                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,wrongHeaderFile);
-                Assert.AreEqual(29, indianCensusRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVFileData(indianCensusDataHeaders, wrongHeaderFile));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, error.type);
         }
 
         //Indian StateCode Data
@@ -98,57 +70,29 @@ namespace CensusAnalyserProblemTest
         [Test]
         public void givenIndianStateCodeCSVFile_WhenFileNotExist_ShouldThrowFileNotFoundException()
         {
-            try
-            {
-                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,invalidCsvFilePath);
-                Assert.AreEqual(37, indianStateCodeRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVFileData(indianStateCodeHeader, invalidCsvFilePath));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, error.type);
         }
 
         [Test]
         public void givenIndianStateCodeCSVFile_WhenFileFormatIsIncorrect_ShouldThrowIncorrectFileFormatException()
         {
-            try
-            {
-                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,nonCSVFile);
-                Assert.AreEqual(37, indianStateCodeRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVFileData(indianStateCodeHeader, nonCSVFile));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT, error.type);
         }
 
         [Test]
         public void givenIndianStateCodeCSVFile_WhenFileFormatIsCorrectButDelimeterIsWrong_ShouldThrowIncorrectDelimeterException()
         {
-            try
-            {
-                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader, wrongIndianStateCodeFile);
-                Assert.AreEqual(37, indianStateCodeRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVFileData(indianStateCodeHeader, wrongIndianStateCodeFile));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, error.type);
         }
 
         [Test]
         public void givenIndianStateCodeCSVFile_WhenFileFormatIsCorrectButHeaderIsIncorrect_ShouldThrowIncorrectHeaderException()
         {
-            try
-            {
-                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,wrongHeaderFile);
-                Assert.AreEqual(37, indianStateCodeRecord.Count());
-            }
-            catch (CensusAnalyserException e)
-            {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, e.type);
-            }
+            var error = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.loadCSVFileData(indianStateCodeHeader, wrongHeaderFile));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, error.type);
         }
     }
 }

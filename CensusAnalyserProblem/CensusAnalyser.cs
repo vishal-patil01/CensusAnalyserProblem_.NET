@@ -9,7 +9,7 @@ namespace CensusAnalyserProblem
     {
         string[] csvFileData;
 
-        public IEnumerable<string> loadCSVFileData(string headers,string csvFilePath)
+        public string[] loadCSVFileData(string headers,string csvFilePath)
         {
             if (!File.Exists(csvFilePath))
             {
@@ -30,8 +30,8 @@ namespace CensusAnalyserProblem
                 {
                     throw new CensusAnalyserException("File Contains Wrong Delimiter", CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER);
                 }
-                yield return record.ToString();
             }
+            return csvFileData.Skip(1).ToArray();
         }
     }
 }
