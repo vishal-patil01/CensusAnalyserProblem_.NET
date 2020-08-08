@@ -8,12 +8,15 @@ namespace CensusAnalyserProblemTest
     public class CensusAnalyserTest
     {
         CensusAnalyser censusAnalyser;
-        string csvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IndiaStateCensusData.csv";
+        string indianCensusDataHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
+        string indianStateCodeHeader = "SrNo,State Name,TIN,StateCode";
+        string csvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Resources\IndiaStateCensusData.csv";
         string invalidCsvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\IndiaStateCensusData.csv";
         string nonCSVFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblem\CensusAnalyser.cs";
-        string wrongDelemeterFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IncorrectDelimeters.csv";
-        string wrongHeaderFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IncorrectHeaders.csv";
-        string indianStateCodeFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IndiaStateCode.csv";
+        string wrongDelemeterFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Resources\IncorrectDelimeters.csv";
+        string wrongHeaderFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Resources\IncorrectHeaders.csv";
+        string indianStateCodeFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Resources\IndiaStateCode.csv";
+        string wrongIndianStateCodeFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Resources\InCorrectIndiaStateCode.csv";
 
         [SetUp]
         public void Setup()
@@ -24,16 +27,17 @@ namespace CensusAnalyserProblemTest
         [Test]
         public void givenIndianCensusCSVFile_WhenFileExist_ShouldReturnsTotalNumberOfRecords()
         {
-            string[] totalRecord = censusAnalyser.loadIndianCensusData(csvFilePath);
-            Assert.AreEqual(29, totalRecord.Length);
+            IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,csvFilePath);
+            Assert.AreEqual(29, indianCensusRecord.Count());
         }
 
         [Test]
-        public void givenIndianCensusCSVFile_WhenFileNotExist_ShouldThrowException()
+        public void givenIndianCensusCSVFile_WhenFileNotExist_ShouldThrowFileNotFoundException()
         {
             try 
             {
-                censusAnalyser.loadIndianCensusData(invalidCsvFilePath);
+                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,invalidCsvFilePath);
+                Assert.AreEqual(29, indianCensusRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
@@ -42,11 +46,12 @@ namespace CensusAnalyserProblemTest
         }
 
         [Test]
-        public void givenIndianCensusCSVFile_WhenFileFormatIsIncorrect_ShouldThrowException()
+        public void givenIndianCensusCSVFile_WhenFileFormatIsIncorrect_ShouldThrowIncorrectFileFormatException()
         {
             try
             {
-                censusAnalyser.loadIndianCensusData(nonCSVFile);
+                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,nonCSVFile);
+                Assert.AreEqual(29, indianCensusRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
@@ -55,11 +60,12 @@ namespace CensusAnalyserProblemTest
         }
 
         [Test]
-        public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButDelimeterIsWrong_ShouldThrowException()
+        public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButDelimeterIsWrong_ShouldThrowIncorrectDelimeterException()
         {
             try
             {
-                censusAnalyser.loadIndianCensusData(wrongDelemeterFile);
+                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,wrongDelemeterFile);
+                Assert.AreEqual(29, indianCensusRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
@@ -68,11 +74,12 @@ namespace CensusAnalyserProblemTest
         }
 
         [Test]
-        public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButHeaderIsIncorrect_ShouldThrowException()
+        public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButHeaderIsIncorrect_ShouldThrowIncorrectHeaderException()
         {
             try
             {
-                censusAnalyser.loadIndianCensusData(wrongHeaderFile);
+                IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,wrongHeaderFile);
+                Assert.AreEqual(29, indianCensusRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
@@ -84,16 +91,17 @@ namespace CensusAnalyserProblemTest
         [Test]
         public void givenIndianStateCodeCSVFile_WhenFileExist_ShouldReturnsTotalNumberOfRecords()
         {
-            IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadIndianStateCodeData(indianStateCodeFile);
+            IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,indianStateCodeFile);
             Assert.AreEqual(37, indianStateCodeRecord.Count());
         }
 
         [Test]
-        public void givenIndianStateCodeCSVFile_WhenFileNotExist_ShouldThrowException()
+        public void givenIndianStateCodeCSVFile_WhenFileNotExist_ShouldThrowFileNotFoundException()
         {
             try
             {
-                censusAnalyser.loadIndianStateCodeData(invalidCsvFilePath);
+                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,invalidCsvFilePath);
+                Assert.AreEqual(37, indianStateCodeRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
@@ -102,11 +110,12 @@ namespace CensusAnalyserProblemTest
         }
 
         [Test]
-        public void givenIndianStateCodeCSVFile_WhenFileFormatIsIncorrect_ShouldThrowException()
+        public void givenIndianStateCodeCSVFile_WhenFileFormatIsIncorrect_ShouldThrowIncorrectFileFormatException()
         {
             try
             {
-                censusAnalyser.loadIndianStateCodeData(nonCSVFile);
+                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,nonCSVFile);
+                Assert.AreEqual(37, indianStateCodeRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
@@ -115,11 +124,12 @@ namespace CensusAnalyserProblemTest
         }
 
         [Test]
-        public void givenIndianStateCodeCSVFile_WhenFileFormatIsCorrectButDelimeterIsWrong_ShouldThrowException()
+        public void givenIndianStateCodeCSVFile_WhenFileFormatIsCorrectButDelimeterIsWrong_ShouldThrowIncorrectDelimeterException()
         {
             try
             {
-                censusAnalyser.loadIndianStateCodeData(wrongDelemeterFile);
+                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader, wrongIndianStateCodeFile);
+                Assert.AreEqual(37, indianStateCodeRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
@@ -128,11 +138,12 @@ namespace CensusAnalyserProblemTest
         }
 
         [Test]
-        public void givenIndianStateCodeCSVFile_WhenFileFormatIsCorrectButHeaderIsIncorrect_ShouldThrowException()
+        public void givenIndianStateCodeCSVFile_WhenFileFormatIsCorrectButHeaderIsIncorrect_ShouldThrowIncorrectHeaderException()
         {
             try
             {
-                censusAnalyser.loadIndianStateCodeData(wrongHeaderFile);
+                IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,wrongHeaderFile);
+                Assert.AreEqual(37, indianStateCodeRecord.Count());
             }
             catch (CensusAnalyserException e)
             {
