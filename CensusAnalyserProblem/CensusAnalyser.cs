@@ -18,6 +18,10 @@ namespace CensusAnalyserProblem
                 throw new CensusAnalyserException("Incorrect File Format", CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT);
             }
             censusRecords = File.ReadAllLines(csvFilePath);
+            if (censusRecords[0] != "State,Population,AreaInSqKm,DensityPerSqKm")
+            {
+                throw new CensusAnalyserException("Incorrect Headers", CensusAnalyserException.ExceptionType.INCORRECT_HEADER);
+            }
             foreach (string record in censusRecords)
             {
                 if (!record.Contains(","))

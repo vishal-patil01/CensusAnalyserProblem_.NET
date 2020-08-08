@@ -9,7 +9,8 @@ namespace CensusAnalyserProblemTest
         string csvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IndiaStateCensusData.csv";
         string invalidCsvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\IndiaStateCensusData.csv";
         string nonCSVFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblem\CensusAnalyser.cs";
-        string WrongDElemeterFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\DataWrongDelimeter.csv";
+        string WrongDelemeterFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IncorrectDelimeters.csv";
+        string WrongHeaderFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IncorrectHeaders.csv";
 
         [SetUp]
         public void Setup()
@@ -55,11 +56,24 @@ namespace CensusAnalyserProblemTest
         {
             try
             {
-                censusAnalyser.loadCSVData(WrongDElemeterFile);
+                censusAnalyser.loadCSVData(WrongDelemeterFile);
             }
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, e.type);
+            }
+        }
+
+        [Test]
+        public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButHeaderIsIncorrect_ShouldThrowException()
+        {
+            try
+            {
+                censusAnalyser.loadCSVData(WrongHeaderFile);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, e.type);
             }
         }
     }
