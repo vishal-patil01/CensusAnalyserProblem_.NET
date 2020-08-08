@@ -8,6 +8,7 @@ namespace CensusAnalyserProblemTest
         CensusAnalyser censusAnalyser;
         string csvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IndiaStateCensusData.csv";
         string invalidCsvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\IndiaStateCensusData.csv";
+        string nonCSVFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblem\CensusAnalyser.cs";
 
         [SetUp]
         public void Setup()
@@ -31,7 +32,19 @@ namespace CensusAnalyserProblemTest
             }
             catch (CensusAnalyserException e)
             {
-                Assert.AreEqual(CensusAnalyserException.ExceptionType.CENSUS_FILE_Not_Found,e.type);
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, e.type);
+            }
+        }
+        [Test]
+        public void givenIndianCensusCSVFile_WhenFileFormatIsIncorrect_ShouldThrowException()
+        {
+            try
+            {
+                censusAnalyser.loadCSVData(nonCSVFile);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT, e.type);
             }
         }
     }

@@ -11,8 +11,13 @@ namespace CensusAnalyserProblem
         {
             if (!File.Exists(csvFilePath))
             {
-                throw new CensusAnalyserException("File Not Found", CensusAnalyserException.ExceptionType.CENSUS_FILE_Not_Found);
+                throw new CensusAnalyserException("File Not Found", CensusAnalyserException.ExceptionType.FILE_NOT_FOUND);
             }
+            if (Path.GetExtension(csvFilePath) != ".csv")
+            {
+                throw new CensusAnalyserException("File Not Found", CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT);
+            }
+            
             return File.ReadAllLines(csvFilePath).Skip(1).ToArray();
         }
     }
