@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace CensusAnalyserProblem
     public class CensusAnalyser
     {
         string[] censusRecords;
-        public string[] loadCSVData(string csvFilePath)
+        public string[] loadIndianCensusData(string csvFilePath)
         {
             if (!File.Exists(csvFilePath))
             {
@@ -30,6 +31,13 @@ namespace CensusAnalyserProblem
                 }
             }
             return censusRecords.Skip(1).ToArray();
+        }
+        public IEnumerable<string> loadIndianStateCodeData(string csvFilePath)
+        {
+            foreach (var items in File.ReadAllLines(csvFilePath).Skip(1))
+            {
+                yield return items.ToString();
+            }
         }
     }
 }
