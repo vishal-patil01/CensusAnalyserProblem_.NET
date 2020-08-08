@@ -7,14 +7,13 @@ namespace CensusAnalyserProblem
     public class CensusAnalyser
     {
         string[] censusRecords;
-        public void loadCSVData(string csvFilePath)
+        public string[] loadCSVData(string csvFilePath)
         {
-            censusRecords = File.ReadAllLines(csvFilePath).Skip(1).ToArray();
-        }
-
-        public int getTotalNumberOfRecords()
-        {
-            return censusRecords.Length;
+            if (!File.Exists(csvFilePath))
+            {
+                throw new CensusAnalyserException("File Not Found", CensusAnalyserException.ExceptionType.CENSUS_FILE_Not_Found);
+            }
+            return File.ReadAllLines(csvFilePath).Skip(1).ToArray();
         }
     }
 }
