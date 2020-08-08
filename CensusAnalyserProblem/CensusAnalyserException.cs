@@ -8,7 +8,7 @@ namespace CensusAnalyserProblem
     {
         public enum ExceptionType
         {
-            FILE_NOT_FOUND, INCORRECT_FILE_FORMAT
+            FILE_NOT_FOUND, INCORRECT_FILE_FORMAT, INCORRECT_DELIMITER
         }
         public ExceptionType type;
 

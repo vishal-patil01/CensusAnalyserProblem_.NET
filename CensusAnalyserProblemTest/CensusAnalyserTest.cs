@@ -9,6 +9,7 @@ namespace CensusAnalyserProblemTest
         string csvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\IndiaStateCensusData.csv";
         string invalidCsvFilePath = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\IndiaStateCensusData.csv";
         string nonCSVFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblem\CensusAnalyser.cs";
+        string WrongDElemeterFile = @"D:\vishal\Projects\.Net\Console App\CensusAnalyserProblem\CensusAnalyserProblemTest\Data\DataWrongDelimeter.csv";
 
         [SetUp]
         public void Setup()
@@ -35,6 +36,7 @@ namespace CensusAnalyserProblemTest
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, e.type);
             }
         }
+
         [Test]
         public void givenIndianCensusCSVFile_WhenFileFormatIsIncorrect_ShouldThrowException()
         {
@@ -45,6 +47,19 @@ namespace CensusAnalyserProblemTest
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_FILE_FORMAT, e.type);
+            }
+        }
+
+        [Test]
+        public void givenIndianCensusCSVFile_WhenFileFormatIsCorrectButDelimeterIsWrong_ShouldThrowException()
+        {
+            try
+            {
+                censusAnalyser.loadCSVData(WrongDElemeterFile);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, e.type);
             }
         }
     }
