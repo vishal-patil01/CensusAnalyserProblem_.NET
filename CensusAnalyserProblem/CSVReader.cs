@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 
 namespace CensusAnalyserProblem
 {
-    class CSVReader
+    class CSVReader :ICSVReader
     {
         string[] csvFileData;
-        public delegate string[] ReadCSVFileData(string headers, string csvFilePath);
 
         public string[] getCSVFileData(string headers, string csvFilePath)
         {

@@ -27,8 +27,8 @@ namespace CensusAnalyserProblemTest
         [Test]
         public void givenIndianCensusCSVFile_WhenFileExist_ShouldReturnsTotalNumberOfRecords()
         {
-            IEnumerable<string> indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,csvFilePath);
-            Assert.AreEqual(29, indianCensusRecord.Count());
+            string[] indianCensusRecord = censusAnalyser.loadCSVFileData(indianCensusDataHeaders,csvFilePath);
+            Assert.AreEqual(29, indianCensusRecord.Length);
         }
 
         [Test]
@@ -63,8 +63,8 @@ namespace CensusAnalyserProblemTest
         [Test]
         public void givenIndianStateCodeCSVFile_WhenFileExist_ShouldReturnsTotalNumberOfRecords()
         {
-            IEnumerable<string> indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,indianStateCodeFile);
-            Assert.AreEqual(37, indianStateCodeRecord.Count());
+            string[] indianStateCodeRecord = censusAnalyser.loadCSVFileData(indianStateCodeHeader,indianStateCodeFile);
+            Assert.AreEqual(37, indianStateCodeRecord.Length);
         }
 
         [Test]

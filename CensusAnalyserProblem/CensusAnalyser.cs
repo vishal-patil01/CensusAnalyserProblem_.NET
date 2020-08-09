@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using static CensusAnalyserProblem.CSVReader;
+﻿using static CensusAnalyserProblem.ICSVReader;
 
 namespace CensusAnalyserProblem
 {
@@ -10,7 +6,7 @@ namespace CensusAnalyserProblem
     {
         public string[] loadCSVFileData(string headers,string csvFilePath)
         {
-            CSVReader csvDatareader = new CSVReader();
+            ICSVReader csvDatareader = CSVFactory.createCSVReader();
             ReadCSVFileData readCSVData = new ReadCSVFileData(csvDatareader.getCSVFileData);
             return readCSVData(headers, csvFilePath);
         }
