@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
+using static CensusAnalyserProblem.SortType;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace CensusAnalyserProblem
 {
@@ -10,21 +10,23 @@ namespace CensusAnalyserProblem
         ICSVDataReader csvDatareader = CSVFactory.CreateCSVReader();
         public List<IndianCensus> loadIndianCensusData(string headers,string csvFilePath)
         {
-            List<IndianCensus> indianCensusList = csvDatareader.GetCSVFileData<IndianCensus>(headers,csvFilePath);
-            return indianCensusList;
+           return csvDatareader.GetCSVFileData<IndianCensus>(headers,csvFilePath);
         }
 
         public List<IndianStateCode> LoadIndianStateData(string headers, string csvFilePath)
         {
-            List<IndianStateCode> indianCensusList = csvDatareader.GetCSVFileData<IndianStateCode>(headers, csvFilePath);
-            return indianCensusList;
+            return csvDatareader.GetCSVFileData<IndianStateCode>(headers, csvFilePath);
         }
 
-        public string SortAndConvertDataToJson(List<IndianCensus> list)
+        public string SortAndConvertCensusToJson(List<IndianCensus> list,SortBy sortType)
         {
-            list.Sort((x, y) => x.state.CompareTo(y.state));
-            string jsonObject = JsonConvert.SerializeObject(list);
-            return jsonObject;
+            List<IndianCensus> sortedList = SortCensusData(list, sortType);
+            return JsonConvert.SerializeObject(sortedList);
+        }
+        public string SortAndConvertStateCodeDataToJson(List<IndianStateCode> list, SortBy sortType)
+        {
+            List<IndianStateCode> sortedList = SortType.SortStateCodeData(list, sortType);
+            return JsonConvert.SerializeObject(sortedList);
         }
     }
 }
