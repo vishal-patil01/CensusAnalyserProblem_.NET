@@ -39,9 +39,9 @@ namespace CensusAnalyserProblem
                     return csv.GetRecords<T>().ToList();
                 }
             }
-            catch (UnauthorizedAccessException ue)
+            catch (UnauthorizedAccessException e)
             {
-                throw new Exception(ue.Message);
+                throw new Exception(e.Message);
             }
         }
     }
