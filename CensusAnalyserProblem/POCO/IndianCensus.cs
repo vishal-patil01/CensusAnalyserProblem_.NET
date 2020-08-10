@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration.Attributes;
 
-namespace CensusAnalyser.model
+namespace CensusAnalyserProblem
 {
     public class IndianCensus
     {

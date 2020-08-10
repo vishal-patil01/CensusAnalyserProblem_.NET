@@ -9,7 +9,7 @@ namespace CensusAnalyserProblem
 {
     public class CSVDataReader : ICSVDataReader
     {
-        public List<T> getCSVFileData<T>(string headers,string csvFilePath)
+        public List<T> GetCSVFileData<T>(string headers,string csvFilePath)
         {
             if (!File.Exists(csvFilePath))
             {
