@@ -11,7 +11,7 @@ namespace CensusAnalyserProblem
         {
             STATE_ASC,STATE_CODE_ASC
         }
-        public static List<IndianCensus> SortCensusData(List<IndianCensus> list, SortBy sortType)
+        public static List<IndianCensus> SortIndianCensusData(List<IndianCensus> list, SortBy sortType)
         {
             switch (sortType)
             {
