@@ -1,4 +1,5 @@
-﻿namespace CensusAnalyserProblem
+﻿
+namespace CensusAnalyserProblem
 {
     class CSVFactory
     {
