@@ -9,7 +9,7 @@ namespace CensusAnalyserProblem
 {
     public class CSVDataReader : ICSVDataReader
     {
-        public List<T> GetCSVFileData<T>(string headers,string csvFilePath)
+        public Dictionary<string,IndianCensusDAO> GetCSVFileData(string headers,string csvFilePath)
         {
             if (!File.Exists(csvFilePath))
             {
@@ -36,8 +36,15 @@ namespace CensusAnalyserProblem
                 using (var readers = new StreamReader(csvFilePath, Encoding.Default))
                 using (var csv = new CsvReader(readers, System.Globalization.CultureInfo.CurrentCulture))
                 {
-                    return csv.GetRecords<T>().ToList();
+                    if (headers.Contains("State,Population,AreaInSqKm,DensityPerSqKm"))
+                    {
+                        IndianCensus[] indianCensus = csv.GetRecords<IndianCensus>().ToArray();
+                        return indianCensus.ToDictionary(x => x.state, x => new IndianCensusDAO(x));
+                    }
+                    IndianStateCode[] indianStateCodes = csv.GetRecords<IndianStateCode>().ToArray();
+                    return indianStateCodes.ToDictionary(x => x.state, x => new IndianCensusDAO(x));
                 }
+
             }
             catch (UnauthorizedAccessException e)
             {

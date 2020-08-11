@@ -11,20 +11,13 @@ namespace CensusAnalyserProblem
         {
             STATE_ASC,STATE_CODE_ASC
         }
-        public static List<IndianCensus> SortIndianCensusData(List<IndianCensus> list, SortBy sortType)
+        public static List<IndianCensusDAO> SortIndianCensusData(List<IndianCensusDAO> list, SortBy sortType)
         {
             switch (sortType)
             {
                 case SortBy.STATE_ASC : return list.OrderBy(c => c.state).ToList();
-                default : return list;
-            }
-        }
-        public static List<IndianStateCode> SortStateCodeData(List<IndianStateCode> list, SortBy sortType)
-        {
-            switch (sortType)
-            {
                 case SortBy.STATE_CODE_ASC: return list.OrderBy(c => c.stateCode).ToList();
-                default: return list;
+                default : return list;
             }
         }
     }
