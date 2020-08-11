@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace CensusAnalyserProblem
 {
-    public class CensusAnalyser
+    public class IndianCensusAnalyser
     {
         ICSVDataReader csvDatareader = CSVFactory.CreateCSVReader();
-        public Dictionary<string, IndianCensusDAO> loadIndianCensusData(string headers, string csvFilePath)
+        public Dictionary<string, IndianCensusDAO> LoadIndianCensusData(string headers, string csvFilePath)
         {
-           return csvDatareader.GetCSVFileData(headers, csvFilePath);
+           return csvDatareader.ReadIndianCensusData(headers, csvFilePath);
         }
 
         public string SortAndConvertCensusToJson(Dictionary<string, IndianCensusDAO> dictionary, SortBy sortType)

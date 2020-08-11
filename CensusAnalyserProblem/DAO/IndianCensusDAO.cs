@@ -7,7 +7,7 @@ namespace CensusAnalyserProblem
    public class IndianCensusDAO
     {
         public int areaInSqkm;
-        public String state;
+        public dynamic state;
         public int population;
         public int densityPerSqKm;
         public int srNo;
