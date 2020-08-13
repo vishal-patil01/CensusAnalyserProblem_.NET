@@ -2,16 +2,18 @@
 using static CensusAnalyserProblem.SortType;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
+using System;
 
 namespace CensusAnalyserProblem
 {
-    public class UsCensusAnalyser
+    public class IndianCensusLoader
     {
         ICSVDataReader csvDatareader = CSVFactory.CreateCSVReader();
 
-        public Dictionary<string, USCensus> LoadUsCensusData(string headers, string csvFilePath)
+        public Dictionary<object, CensusDAO> LoadIndianCensusData<T>(string headers, string csvFilePath)
         {
-            return csvDatareader.ReadUsCensusData(headers, csvFilePath);
+              return csvDatareader.ReadCSVFile<T>(headers, csvFilePath);
         }
     }
 }

@@ -5,7 +5,6 @@ namespace CensusAnalyserProblem
 {
     public interface ICSVDataReader
     {
-        public Dictionary<string, IndianCensusDAO> ReadIndianCensusData(string headers,string csvFilePath);
-        public Dictionary<string, USCensus> ReadUsCensusData(string headers,string csvFilePath);
+        public Dictionary<object, CensusDAO> ReadCSVFile<T>(string headers, string csvFilePath);
     }
 }

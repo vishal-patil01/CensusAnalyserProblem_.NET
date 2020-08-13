@@ -15,6 +15,5 @@ namespace CensusAnalyserProblem
 
         [Name("DensityPerSqKm")]
         public int populationDensity { get; set; }
-        
     }
 }

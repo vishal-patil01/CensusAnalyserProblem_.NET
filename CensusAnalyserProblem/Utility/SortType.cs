@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -9,19 +10,20 @@ namespace CensusAnalyserProblem
     {
         public enum SortBy
         {
-            STATE_ASC,STATE_CODE_ASC,POPULATION_DESC,POPULATION_DENSITY_DESC,AREA_PER_SQM_DESC
+            STATE,STATE_CODE,POPULATION,POPULATION_DENSITY,AREA_IN_SQ_KM
         }
-        public static List<IndianCensusDAO> SortIndianCensusData(List<IndianCensusDAO> list, SortBy sortType)
+        public enum SortOrder
         {
-            switch (sortType)
-            {
-                case SortBy.STATE_ASC : return list.OrderBy(c => c.state).ToList();
-                case SortBy.STATE_CODE_ASC: return list.OrderBy(c => c.stateCode).ToList();
-                case SortBy.POPULATION_DESC: return list.OrderByDescending(c => c.population).ToList();
-                case SortBy.POPULATION_DENSITY_DESC: return list.OrderByDescending(c => c.densityPerSqKm).ToList();
-                case SortBy.AREA_PER_SQM_DESC: return list.OrderByDescending(c => c.areaInSqkm).ToList();
-                default: return list;
-            }
+            ASCENDING,DESCENDING
+        }
+        public enum Country
+        {
+            INDIA, US
+        }
+        public static List<CensusDAO> SortCensusData(List<CensusDAO> list, string sortType, SortOrder sortOrder)
+        {
+            return sortOrder == SortOrder.ASCENDING ? list.OrderBy(c => c.GetType().GetField(sortType).GetValue(c)).ToList()
+                  : list.OrderByDescending(c => c.GetType().GetField(sortType).GetValue(c)).ToList();
         }
     }
 }

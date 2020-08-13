@@ -1,7 +1,7 @@
 ﻿
 namespace CensusAnalyserProblem
 {
-    class CSVFactory
+   public class CSVFactory
     {
         public static ICSVDataReader CreateCSVReader()
         {
