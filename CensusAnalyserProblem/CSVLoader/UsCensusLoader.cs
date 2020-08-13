@@ -1,17 +1,30 @@
-﻿using Newtonsoft.Json;
-using static CensusAnalyserProblem.SortType;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿// <copyright file="UsCensusLoader.cs" company="BridgeLabz">
+// Copyright (c) Vishal Rajput. All rights reserved.
+// </copyright>
 namespace CensusAnalyserProblem
 {
-    public class UsCensusLoader
-    {
-        ICSVDataReader csvDatareader = CSVFactory.CreateCSVReader();
+    using System.Collections.Generic;
 
-        public Dictionary<object,CensusDAO> LoadUsCensusData<T>(string headers, string csvFilePath)
+    /// <summary>
+    ///  Description: Load US Census data From CSV File To Dictionary.
+    /// </summary>
+    public class UsCensusLoader : ICSVLoader
+    {
+        /// <summary>
+        ///  Description: Instance Of CSVFileReader Class
+        /// </summary>
+        private readonly ICSVReader csvDatareader = CSVFactory.CreateCSVReader();
+
+        /// <summary>
+        /// Description: Load US Census data From CSV File To Dictionary.
+        /// </summary>
+        /// <typeparam name="T"> Generic Type </typeparam>
+        /// <param name="headers"> CSVFile Headers </param>
+        /// <param name="csvFilePath"> CSVFile Path </param>
+        /// <returns> Dictionary Of String As key And CensusDAO As Value </returns>
+        public Dictionary<object, CensusDAO> LoadCensusData<T>(string headers, string csvFilePath)
         {
-            return csvDatareader.ReadCSVFile<T>(headers, csvFilePath);
+            return this.csvDatareader.ReadCSVFile<T>(headers, csvFilePath);
         }
     }
 }

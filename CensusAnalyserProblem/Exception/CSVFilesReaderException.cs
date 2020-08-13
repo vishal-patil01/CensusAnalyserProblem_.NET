@@ -1,18 +1,33 @@
-﻿using System;
-
+﻿// <copyright file="CSVFilesReaderException.cs" company="BridgeLabz">
+// Copyright (c) Vishal Rajput. All rights reserved.
+// </copyright>
 namespace CensusAnalyserProblem
 {
-    public class CSVFilesReaderException:Exception
+    using System;
+
+    /// <summary>
+    /// Description: Custom Exception Implementation For CSVFilesReader.
+    /// </summary>
+    public class CSVFilesReaderException : Exception
     {
-        public enum ExceptionType
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CSVFilesReaderException"/> class.
+        /// </summary>
+        /// <param name="message">Exception Message</param>
+        /// <param name="type">Exception Type</param>
+        public CSVFilesReaderException(string message, CSVReaderExceptionType type) : base(message)
+        {
+            this.ExceptionType = type;
+        }
+
+        /// <summary>
+        /// Description: Enum For Define Custom Exception Type For CSVFilesReader.
+        /// </summary>
+        public enum CSVReaderExceptionType
         {
             FILE_NOT_FOUND, INCORRECT_FILE_FORMAT, INCORRECT_DELIMITER, INCORRECT_HEADER
         }
-        public ExceptionType type;
 
-        public CSVFilesReaderException(String message, ExceptionType type) : base(String.Format(message))
-        {
-            this.type = type;
-        }
+        public CSVReaderExceptionType ExceptionType { get; set; }
     }
 }
