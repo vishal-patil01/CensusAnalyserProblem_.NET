@@ -226,5 +226,24 @@ namespace CensusAnalyserProblemTest
             var error = Assert.Throws<CSVFilesReaderException>(() => censusAdapter.LoadCensusData<USCensus>(Country.US, usCensusDataHeader, indianCensusCsvFile));
             Assert.AreEqual(CSVFilesReaderException.ExceptionType.INCORRECT_HEADER, error.type);
         }
+        //UsCensus Sorting Test
+        [Test]
+        public void GivenUsCensusCSVFileForSorting_WhenFileExist_ShouldReturnsMostPopulousState()
+        {
+            Dictionary<object, CensusDAO> usRecord = censusAdapter.LoadCensusData<USCensus>(Country.US, usCensusDataHeader, usCensusCSVFile);
+            string sortedList = censusAdapter.SortAndConvertCensusToJson(usRecord, SortBy.POPULATION, SortOrder.DESCENDING);
+            List<CensusDAO> usCensusSortedList = JsonConvert.DeserializeObject<List<CensusDAO>>(sortedList);
+            Assert.AreEqual("California", usCensusSortedList[0].state);
+        }
+
+        [Test]
+        public void GivenUsCensusCSVFileForSorting_WhenFileExist_ShouldReturnsLeastPopulousState()
+        {
+            Dictionary<object, CensusDAO> usRecord = censusAdapter.LoadCensusData<USCensus>(Country.US, usCensusDataHeader, usCensusCSVFile);
+            string sortedList = censusAdapter.SortAndConvertCensusToJson(usRecord, SortBy.POPULATION, SortOrder.DESCENDING);
+            List<CensusDAO> usCensusSortedList = JsonConvert.DeserializeObject<List<CensusDAO>>(sortedList);
+            Assert.AreEqual("Wyoming", usCensusSortedList[usCensusSortedList.Count - 1].state);
+        }
+
     }
 }
