@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using static CensusAnalyserProblem.SortType;
+using static CensusAnalyserProblem.CensusEnums;
 
 namespace CensusAnalyserProblem
 {
@@ -16,8 +16,12 @@ namespace CensusAnalyserProblem
         {
             string sortFieldTitleCase = textInfo.ToTitleCase(sortType.ToString().ToLower()).Replace("_", string.Empty);
             string sortField = Char.ToLowerInvariant(sortFieldTitleCase[0]) + sortFieldTitleCase.Substring(1);
-            var sortedList = SortType.SortCensusData(dictionary.Select(x => x.Value).ToList(), sortField, sortOrder).Select(x => x.getDTO(dto, x)).ToList();
+            var sortedList = SortType.SortCensusData(dictionary.Select(value => value.Value).ToList(), sortField, sortOrder).Select(x => x.getDTO(dto, x)).ToList();
             return JsonConvert.SerializeObject(sortedList);
+        }
+        public string GetMostPopulousState(IndianCensus indianCensus,USCensus usCensus)
+        {
+             return indianCensus.populationDensity > usCensus.populationDensity ? indianCensus.state : usCensus.state;
         }
     }
 }

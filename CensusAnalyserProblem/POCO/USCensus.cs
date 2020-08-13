@@ -31,7 +31,7 @@ namespace CensusAnalyserProblem
         [Name("Housing Density")]
         public float housingDensity { get; set; }
         public USCensus() { }
-        public USCensus(string state, string stateId, int population, float waterArea, int housingUnit, float housingDensity, float landArea, float totalArea)
+        public USCensus(string state, string stateId, int population, float waterArea, int housingUnit, float housingDensity, float landArea, float totalArea,float populationDensity)
         {
             this.state = state;
             this.stateId = stateId;
@@ -42,6 +42,7 @@ namespace CensusAnalyserProblem
             this.landArea = landArea;
             this.housingDensity = housingDensity;
             this.totalArea = totalArea;
+            this.populationDensity = populationDensity;
         }
     }
 }
