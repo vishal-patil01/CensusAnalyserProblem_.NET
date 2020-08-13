@@ -1,4 +1,6 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using System;
+using System.Dynamic;
 
 namespace CensusAnalyserProblem
 {
@@ -15,5 +17,14 @@ namespace CensusAnalyserProblem
 
         [Name("DensityPerSqKm")]
         public int populationDensity { get; set; }
+
+        public IndianCensus() { }
+        public IndianCensus(string state, int population, float totalArea, float populationDensity)
+        {
+            this.state = state;
+            this.population = population;
+            this.totalArea = Convert.ToInt32(totalArea);
+            this.populationDensity = Convert.ToInt32(populationDensity);
+        }
     }
 }
